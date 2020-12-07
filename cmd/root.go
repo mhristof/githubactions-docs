@@ -15,31 +15,45 @@ var version = "devel"
 var rootCmd = &cobra.Command{
 	Use:     "githubactions-docs",
 	Short:   "Generate documentation for Github Actions similar to terraform-docs",
+	Args:    cobra.ArbitraryArgs,
 	Version: version,
-	Args:    cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		Verbose(cmd)
+		var files []string
 
-		if _, err := os.Stat(args[0]); os.IsNotExist(err) {
-			panic(fmt.Sprintf("Error, file %s does not exist", args[0]))
+		files = append(files, args...)
+
+		if len(args) == 0 {
+			files = append(files, "action.yml")
 		}
 
-		data, err := ioutil.ReadFile(args[0])
-		if err != nil {
-			log.WithFields(log.Fields{
-				"err":     err,
-				"args[0]": args[0],
-			}).Error("Could not load file")
-		}
+		for _, file := range files {
+			if _, err := os.Stat(file); os.IsNotExist(err) {
+				log.WithFields(log.Fields{
+					"file": file,
+				}).Error("File not found")
+				continue
+			}
 
-		cfg, err := action.Load(data)
-		if err != nil {
-			log.WithFields(log.Fields{
-				"err": err,
-			}).Error("Could not decode action file")
-		}
+			data, err := ioutil.ReadFile(file)
+			if err != nil {
+				log.WithFields(log.Fields{
+					"err":  err,
+					"file": file,
+				}).Error("Could not load file")
+				continue
+			}
 
-		fmt.Println(cfg.Markdown())
+			cfg, err := action.Load(data)
+			if err != nil {
+				log.WithFields(log.Fields{
+					"err": err,
+				}).Error("Could not decode action file")
+				continue
+			}
+
+			fmt.Println(cfg.Markdown())
+		}
 	},
 }
 
