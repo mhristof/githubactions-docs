@@ -74,6 +74,7 @@ func TestMarkdown(t *testing.T) {
 				| Name | Description |
 				| ---- | ----------- |
 				| random-number | Random number |
+
 			`),
 		},
 		{
@@ -97,6 +98,7 @@ func TestMarkdown(t *testing.T) {
 				| Name | Description | Default | Required |
 				| ---- | ----------- | ------- | -------- |
 				| who-to-greet | Who to greet | World | true|
+
 			`),
 		},
 		{
@@ -119,6 +121,7 @@ func TestMarkdown(t *testing.T) {
 				| Name | Description |
 				| ---- | ----------- |
 				| random-number | Random number |
+
 			`),
 		},
 	}

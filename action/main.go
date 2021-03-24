@@ -55,9 +55,8 @@ var md = `# {{ .Name }}
 | ---- | ----------- | ------- | -------- |
 {{ range $key, $value  := .Inputs -}}
 | {{ $key }} | {{$value.Description}} | {{$value.Default }} | {{ $value.Required }}|
+{{ end }}
 {{ end -}}
-{{ end -}}
-
 {{ if .Outputs -}}
 ## Outputs
 
@@ -65,7 +64,7 @@ var md = `# {{ .Name }}
 | ---- | ----------- |
 {{ range $key, $value  := .Outputs -}}
 | {{ $key }} | {{$value.Description}} |
-{{ end -}}
+{{ end }}
 {{ end -}}`
 
 func (c *Config) Markdown() string {
