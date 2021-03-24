@@ -77,6 +77,55 @@ func TestMarkdown(t *testing.T) {
 				| random-number | Random number |
 			`),
 		},
+		{
+			name: "no outputs",
+			yaml: heredoc.Doc(`
+				name: 'Hello World'
+				description: 'Greet someone'
+				inputs:
+				  who-to-greet:  # id of input
+				    description: 'Who to greet'
+				    required: true
+				    default: 'World'
+			`),
+			expected: heredoc.Doc(`
+				# Hello World
+				
+				Greet someone
+				
+				## Inputs
+				
+				| Name | Description | Default | Required |
+				| ---- | ----------- | ------- | -------- |
+				| who-to-greet | Who to greet | World | true|
+
+
+			`),
+		},
+		{
+			name: "no inputs",
+			yaml: heredoc.Doc(`
+				name: 'Hello World'
+				description: 'Greet someone'
+				outputs:
+				  random-number: 
+				    description: "Random number"
+				    value: ${{ steps.random-number-generator.outputs.random-id }}
+			`),
+			expected: heredoc.Doc(`
+				# Hello World
+				
+				Greet someone
+
+
+				
+				## Outputs
+				
+				| Name | Description |
+				| ---- | ----------- |
+				| random-number | Random number |
+			`),
+		},
 	}
 
 	for _, test := range cases {
