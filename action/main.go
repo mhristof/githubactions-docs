@@ -48,6 +48,7 @@ var md = `# {{ .Name }}
 
 {{ .Description }}
 
+{{ if .Inputs -}}
 ## Inputs
 
 | Name | Description | Default | Required |
@@ -55,14 +56,17 @@ var md = `# {{ .Name }}
 {{ range $key, $value  := .Inputs -}}
 | {{ $key }} | {{$value.Description}} | {{$value.Default }} | {{ $value.Required }}|
 {{ end }}
+{{- end }}
 
+{{ if .Outputs -}}
 ## Outputs
 
 | Name | Description |
 | ---- | ----------- |
 {{ range $key, $value  := .Outputs -}}
 | {{ $key }} | {{$value.Description}} |
-{{ end }}`
+{{ end }}
+{{- end -}}`
 
 func (c *Config) Markdown() string {
 	tmpl, err := template.New("markdown").Parse(md)
