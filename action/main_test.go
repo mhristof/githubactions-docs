@@ -69,7 +69,6 @@ func TestMarkdown(t *testing.T) {
 				| ---- | ----------- | ------- | -------- |
 				| who-to-greet | Who to greet | World | true|
 				
-				
 				## Outputs
 				
 				| Name | Description |
@@ -98,8 +97,6 @@ func TestMarkdown(t *testing.T) {
 				| Name | Description | Default | Required |
 				| ---- | ----------- | ------- | -------- |
 				| who-to-greet | Who to greet | World | true|
-
-
 			`),
 		},
 		{
@@ -117,8 +114,6 @@ func TestMarkdown(t *testing.T) {
 				
 				Greet someone
 
-
-				
 				## Outputs
 				
 				| Name | Description |
