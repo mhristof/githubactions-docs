@@ -55,8 +55,8 @@ var md = `# {{ .Name }}
 | ---- | ----------- | ------- | -------- |
 {{ range $key, $value  := .Inputs -}}
 | {{ $key }} | {{$value.Description}} | {{$value.Default }} | {{ $value.Required }}|
-{{- end -}}
-{{- end -}}
+{{ end -}}
+{{ end -}}
 
 {{ if .Outputs -}}
 ## Outputs
